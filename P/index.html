@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Question for You ❤️</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Baloo Da 2 for Bengali, Great Vibes for cursive -->
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@400;600;800&family=Great+Vibes&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+            overflow: hidden; /* Prevent scrolling for the immersive feel */
+        }
+
+        .bengali-text {
+            font-family: 'Baloo Da 2', cursive;
+        }
+
+        .cursive {
+            font-family: 'Great Vibes', cursive;
+        }
+
+        /* Floating Hearts Background Animation */
+        .heart-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .heart-icon {
+            position: absolute;
+            color: #ffb7b2;
+            opacity: 0.3;
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(110vh) scale(0.5); opacity: 0; }
+            50% { opacity: 0.5; }
+            100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+        }
+
+        /* Card Transitions */
+        .slide-enter {
+            animation: slideIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .slide-exit {
+            animation: slideOut 0.6s cubic-bezier(0.7, 0, 0.84, 0) forwards;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes slideOut {
+            from { transform: translateY(0); opacity: 1; }
+            to { transform: translateY(-50px); opacity: 0; }
+        }
+
+        /* Heartbeat for the main heart */
+        .heartbeat {
+            animation: beat 1.5s infinite;
+        }
+
+        @keyframes beat {
+            0% { transform: scale(1); }
+            15% { transform: scale(1.15); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.15); }
+            60% { transform: scale(1); }
+        }
+
+        .hidden-section {
+            display: none;
+        }
+    </style>
+</head>
+<body class="h-screen w-screen flex items-center justify-center bg-pink-50 relative">
+
+    <!-- Background Hearts -->
+    <div class="heart-bg" id="heart-bg"></div>
+
+    <!-- Main Card Container -->
+    <div class="relative z-10 w-full max-w-md p-6">
+        
+        <div class="bg-white/80 backdrop-blur-md shadow-2xl rounded-3xl p-8 border border-white/50 text-center relative overflow-hidden min-h-[400px] flex flex-col justify-center items-center">
+            
+            <!-- STAGE 1: INTRO -->
+            <div id="stage-1" class="w-full">
+                <div class="text-6xl mb-4">💌</div>
+                <h1 class="text-3xl font-bold text-gray-800 mb-2">Hey Ridhhi,</h1>
+                <p class="text-gray-600 mb-6 text-lg">I have something important to tell you...</p>
+                <button onclick="nextStage(1)" class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transform transition hover:scale-105">
+                    What is it?
+                </button>
+            </div>
+
+            <!-- STAGE 2: BENGALI QUOTE 1 -->
+            <div id="stage-2" class="hidden-section w-full">
+                <div class="text-pink-500 text-5xl mb-4 heartbeat">❤️</div>
+                <p class="bengali-text text-2xl text-gray-800 font-bold mb-2">
+                    "আমারো পরাণ যাহা চায়, <br> তুমি তাই, তুমি তাই..."
+                </p>
+                <p class="text-gray-500 text-sm italic mb-6 font-serif">
+                    "You are everything my soul desires..." <br> - Rabindranath Tagore
+                </p>
+                <button onclick="nextStage(2)" class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-6 rounded-full shadow-md transition hover:scale-105">
+                    Next &rarr;
+                </button>
+            </div>
+
+            <!-- STAGE 3: BENGALI QUOTE 2 -->
+            <div id="stage-3" class="hidden-section w-full">
+                <div class="text-indigo-500 text-5xl mb-4">✨</div>
+                <p class="bengali-text text-2xl text-gray-800 font-bold mb-2">
+                    "তোমার হাতে হাত রেখে আমি <br> পথ চলতে চাই বহুদূর..."
+                </p>
+                <p class="text-gray-500 text-sm italic mb-6 font-serif">
+                    "I want to walk a long way holding your hand..."
+                </p>
+                <button onclick="nextStage(3)" class="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-6 rounded-full shadow-md transition hover:scale-105">
+                    Continue &rarr;
+                </button>
+            </div>
+
+            <!-- STAGE 4: THE PROPOSAL -->
+            <div id="stage-4" class="hidden-section w-full">
+                <img src="https://media.giphy.com/media/26BRv0ThflsHCqDrG/giphy.gif" alt="Cute Love" class="w-32 h-32 mx-auto rounded-full object-cover mb-4 shadow-md">
+                
+                <h2 class="bengali-text text-3xl font-bold text-pink-600 mb-2">
+                    Ridhhi, <br> তুমি কি আমার হবে?
+                </h2>
+                <h3 class="cursive text-4xl text-gray-700 mb-8">
+                    Will you be mine forever?
+                </h3>
+
+                <div class="flex justify-center gap-4 relative h-16">
+                    <button onclick="handleYes()" class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transform transition hover:scale-110 z-20">
+                        Yes! 💍
+                    </button>
+                    
+                    <button id="no-btn" onmouseover="moveButton()" onclick="moveButton()" class="bg-gray-300 text-gray-500 font-bold py-3 px-8 rounded-full shadow-lg absolute right-10 transition-all duration-200 z-10">
+                        No 🙈
+                    </button>
+                </div>
+            </div>
+
+            <!-- STAGE 5: SUCCESS -->
+            <div id="stage-5" class="hidden-section w-full">
+                <div class="text-6xl mb-4 animate-bounce">💍</div>
+                <h1 class="bengali-text text-4xl font-bold text-pink-600 mb-2">
+                    ভালোবাসি!
+                </h1>
+                <p class="text-xl text-gray-700 font-bold mb-4">I Love You Ridhhi!</p>
+                <p class="text-gray-600 mb-6">Love from Rudranil ❤️</p>
+                <div class="text-xs text-gray-400">Take a screenshot and send it to me! 📸</div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Hidden Audio Element -->
+    <!-- Note: Browsers block autoplay. We start this on the first user interaction (First click) -->
+    <!-- You can replace this src with any direct mp3 link -->
+    <!-- Using a copyright-free romantic instrumental placeholder -->
+    <audio id="bg-music" loop>
+        <source src="https://cdn.pixabay.com/download/audio/2022/03/10/audio_c8c8a73467.mp3?filename=piano-moment-11624.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // --- 1. Background Animation Setup ---
+        function createHearts() {
+            const container = document.getElementById('heart-bg');
+            const heartCount = 20;
+
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.innerHTML = '❤️';
+                heart.classList.add('heart-icon');
+                
+                // Randomize position and animation delay
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                heart.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                heart.style.animationDelay = (Math.random() * 5) + 's';
+                
+                container.appendChild(heart);
+            }
+        }
+        createHearts();
+
+        // --- 2. Stage Navigation ---
+        let audioStarted = false;
+
+        function nextStage(current) {
+            // Try to start audio on first interaction if not started
+            if (!audioStarted) {
+                const audio = document.getElementById('bg-music');
+                audio.volume = 0.5;
+                audio.play().catch(e => console.log("Audio requires interaction"));
+                audioStarted = true;
+            }
+
+            // Hide current
+            const currentEl = document.getElementById(`stage-${current}`);
+            currentEl.classList.add('slide-exit');
+            
+            setTimeout(() => {
+                currentEl.style.display = 'none';
+                currentEl.classList.remove('slide-exit');
+
+                // Show next
+                const nextEl = document.getElementById(`stage-${current + 1}`);
+                nextEl.style.display = 'block';
+                nextEl.classList.add('slide-enter');
+            }, 500);
+        }
+
+        // --- 3. The "No" Button Logic ---
+        function moveButton() {
+            const btn = document.getElementById('no-btn');
+            const container = btn.parentElement;
+            
+            // Get container dimensions
+            const containerRect = container.getBoundingClientRect();
+            const btnRect = btn.getBoundingClientRect();
+
+            // Calculate random position within the container bounds
+            // We use fixed pixel values to keep it simple but somewhat chaotic
+            const x = (Math.random() * 200) - 100; // Random X move
+            const y = (Math.random() * 200) - 100; // Random Y move
+
+            btn.style.transform = `translate(${x}px, ${y}px)`;
+            
+            // Change text sometimes
+            const texts = ["No 🙈", "Are you sure?", "Think again!", "Really?", "Don't click me!"];
+            btn.innerText = texts[Math.floor(Math.random() * texts.length)];
+        }
+
+        // --- 4. Celebration Logic ---
+        function handleYes() {
+            nextStage(4);
+            triggerConfetti();
+        }
+
+        function triggerConfetti() {
+            const duration = 5 * 1000;
+            const animationEnd = Date.now() + duration;
+            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+            function randomInRange(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+
+            const interval = setInterval(function() {
+                const timeLeft = animationEnd - Date.now();
+
+                if (timeLeft <= 0) {
+                    return clearInterval(interval);
+                }
+
+                const particleCount = 50 * (timeLeft / duration);
+                
+                // since particles fall down, start a bit higher than random
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+            }, 250);
+        }
+    </script>
+</body>
+</html>
